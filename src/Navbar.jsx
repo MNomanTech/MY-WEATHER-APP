@@ -1,30 +1,29 @@
+import { useState } from 'react';
 import './Navbar.css';
 
 
-export default function Navbar({setSearchBy}){
+export default function Navbar({setWeatherData , getWeatherByCity}){
 
-  let searchObj = {
-    searchby: "city",
-    value: ""
-  };
+  let [inp , setInp] = useState('hyderabad');
 
-  let formSubmit = (event) =>{
+  let formSubmit = async (event) =>{
       event.preventDefault();
-      setSearchBy(searchObj);
+      
+      if(inp!=""){
+        let data = await getWeatherByCity(inp);
+        setWeatherData(data);
+        console.log(data);
+      }
   };
-
-  let selectOptions = (event)=> {
-      searchObj.searchby = event.currentTarget.selectedOptions[0].value;
-      // console.log(searchObj.searchby);
-  };
+      
 
   let inpSearch = (event)=>{
-    searchObj.value = event.target.value;
-    // console.log(searchObj.value);
+    setInp(event.target.value);
+    // console.log(inp);
   };
 
   return (
-      // <nav className="navbar navBar" >
+      
 
       <div className="navbar container-fluid navBarContainer ps-5 pe-5 shadow-lg mt-1" >
         
@@ -34,13 +33,10 @@ export default function Navbar({setSearchBy}){
 
             <div className="input-group ">
 
-                <select className="form-select text-bg-dark " style={{width: "7rem"}} onClick={selectOptions} >            
-                    <option value="City" >City</option>
-                    <option value="Country">Country</option>
-                    <option value="Area">Area</option>
-                </select>
-
-                <input type="search" name="search" id="search" className="form-control text-bg-dark text-white" placeholder='Search' style={{width: "20rem"}} onChange={inpSearch}/>
+                
+                 
+               
+                <input type="search" name="search" id="search" className="form-control text-bg-dark  text-white"  style={{width: "20rem"}} onChange={inpSearch}/>
                 
                 <button type="submit" className="btn btn-outline-primary">Search</button>
 
@@ -49,6 +45,6 @@ export default function Navbar({setSearchBy}){
         
       </div>
       
-    // </nav>
+    
   )
 };
