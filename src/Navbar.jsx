@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Navbar.css';
 
 
-export default function Navbar({setWeatherData , getWeatherByCity}){
+export default function Navbar({setWeatherData , getWeatherByCity, setCoordinates}){
 
   let [inp , setInp] = useState('hyderabad');
 
@@ -12,7 +12,9 @@ export default function Navbar({setWeatherData , getWeatherByCity}){
       if(inp!=""){
         let data = await getWeatherByCity(inp);
         setWeatherData(data);
-        console.log(data);
+        let {lat,lon} = data.coord;
+        setCoordinates([lat,lon]);
+        // console.log(data);
       }
   };
       

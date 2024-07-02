@@ -1,8 +1,9 @@
 
-import MapBox from './MapBox';
+import { useState } from 'react';
+import Map from './Map';
 import './WeatherBox.css';
 
-export default function WeatherBox({weatherData}){
+export default function WeatherBox({weatherData , coordinates}){
 
     return (
         <>
@@ -65,8 +66,9 @@ export default function WeatherBox({weatherData}){
 
                     </div>
                 </div>
-                <div className='col-6 w-50 '>
-                    <MapBox />
+                <div className='col-6 w-50 position-relative'>
+                    
+                    <Map initialCoords={coordinates}/>
                 </div>
                 
             </div>
